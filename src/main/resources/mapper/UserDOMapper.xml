@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.commerce.shop.dao.UserDOMapper">
+  <resultMap id="BaseResultMap" type="com.commerce.shop.dataobject.UserDO">
+    <id column="user_info_id" jdbcType="INTEGER" property="id" />
+    <result column="user_info_name" jdbcType="VARCHAR" property="name" />
+    <result column="user_info_gender" jdbcType="INTEGER" property="gender" />
+    <result column="user_info_age" jdbcType="INTEGER" property="age" />
+    <result column="user_info_telphone" jdbcType="VARCHAR" property="telphone" />
+    <result column="user_info_register_mode" jdbcType="VARCHAR" property="registerMode" />
+    <result column="user_info_third_party_id" jdbcType="VARCHAR" property="thirdPartyId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    user_info.id as user_info_id, user_info.`name` as `user_info_name`, user_info.gender as user_info_gender, 
+    user_info.age as user_info_age, user_info.telphone as user_info_telphone, user_info.register_mode as user_info_register_mode, 
+    user_info.third_party_id as user_info_third_party_id
+  </sql>
+  <select id="selectByExample" parameterType="com.commerce.shop.dataobject.UserDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from user_info user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info user_info
+    where user_info.id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.commerce.shop.dataobject.UserDOExample">
+    delete from user_info user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.commerce.shop.dataobject.UserDO">
+    insert into user_info (id, `name`, gender, 
+      age, telphone, register_mode, 
+      third_party_id)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+      #{age,jdbcType=INTEGER}, #{telphone,jdbcType=VARCHAR}, #{registerMode,jdbcType=VARCHAR}, 
+      #{thirdPartyId,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.commerce.shop.dataobject.UserDO">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="telphone != null">
+        telphone,
+      </if>
+      <if test="registerMode != null">
+        register_mode,
+      </if>
+      <if test="thirdPartyId != null">
+        third_party_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="telphone != null">
+        #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="registerMode != null">
+        #{registerMode,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdPartyId != null">
+        #{thirdPartyId,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.commerce.shop.dataobject.UserDOExample" resultType="java.lang.Long">
+    select count(*) from user_info user_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update user_info user_info
+    <set>
+      <if test="record.id != null">
+        user_info.id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.name != null">
+        user_info.`name` = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gender != null">
+        user_info.gender = #{record.gender,jdbcType=INTEGER},
+      </if>
+      <if test="record.age != null">
+        user_info.age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.telphone != null">
+        user_info.telphone = #{record.telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.registerMode != null">
+        user_info.register_mode = #{record.registerMode,jdbcType=VARCHAR},
+      </if>
+      <if test="record.thirdPartyId != null">
+        user_info.third_party_id = #{record.thirdPartyId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update user_info user_info
+    set user_info.id = #{record.id,jdbcType=INTEGER},
+      user_info.`name` = #{record.name,jdbcType=VARCHAR},
+      user_info.gender = #{record.gender,jdbcType=INTEGER},
+      user_info.age = #{record.age,jdbcType=INTEGER},
+      user_info.telphone = #{record.telphone,jdbcType=VARCHAR},
+      user_info.register_mode = #{record.registerMode,jdbcType=VARCHAR},
+      user_info.third_party_id = #{record.thirdPartyId,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.commerce.shop.dataobject.UserDO">
+    update user_info
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=INTEGER},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="telphone != null">
+        telphone = #{telphone,jdbcType=VARCHAR},
+      </if>
+      <if test="registerMode != null">
+        register_mode = #{registerMode,jdbcType=VARCHAR},
+      </if>
+      <if test="thirdPartyId != null">
+        third_party_id = #{thirdPartyId,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.commerce.shop.dataobject.UserDO">
+    update user_info
+    set `name` = #{name,jdbcType=VARCHAR},
+      gender = #{gender,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      telphone = #{telphone,jdbcType=VARCHAR},
+      register_mode = #{registerMode,jdbcType=VARCHAR},
+      third_party_id = #{thirdPartyId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
