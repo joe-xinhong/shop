@@ -111,7 +111,7 @@
       #{age,jdbcType=INTEGER}, #{telphone,jdbcType=VARCHAR}, #{registerMode,jdbcType=VARCHAR}, 
       #{thirdPartyId,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.commerce.shop.dataobject.UserDO">
+  <insert id="insertSelective" parameterType="com.commerce.shop.dataobject.UserDO" keyProperty="id" useGeneratedKeys="true" >
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -242,4 +242,11 @@
       third_party_id = #{thirdPartyId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+
+  <select id="selectByTelphone"  resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from user_info user_info
+    where user_info.telphone = #{telphone,jdbcType=VARCHAR}
+  </select>
 </mapper>
