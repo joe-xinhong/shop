@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.commerce.shop.dataobject.ItemDO">
     <id column="item_id" jdbcType="INTEGER" property="id" />
     <result column="item_title" jdbcType="VARCHAR" property="title" />
-    <result column="item_price" jdbcType="DECIMAL" property="price" />
+    <result column="item_price" jdbcType="DOUBLE" property="price" />
     <result column="item_description" jdbcType="VARCHAR" property="description" />
     <result column="item_sales" jdbcType="INTEGER" property="sales" />
     <result column="item_img_url" jdbcType="VARCHAR" property="imgUrl" />
@@ -105,11 +105,11 @@
     insert into item (id, title, price, 
       description, sales, img_url
       )
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, 
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{price,jdbcType=DOUBLE}, 
       #{description,jdbcType=VARCHAR}, #{sales,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.commerce.shop.dataobject.ItemDO">
+  <insert id="insertSelective" parameterType="com.commerce.shop.dataobject.ItemDO" keyProperty="id" useGeneratedKeys="true" >
     insert into item
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -139,7 +139,7 @@
         #{title,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
-        #{price,jdbcType=DECIMAL},
+        #{price,jdbcType=DOUBLE},
       </if>
       <if test="description != null">
         #{description,jdbcType=VARCHAR},
@@ -168,7 +168,7 @@
         item.title = #{record.title,jdbcType=VARCHAR},
       </if>
       <if test="record.price != null">
-        item.price = #{record.price,jdbcType=DECIMAL},
+        item.price = #{record.price,jdbcType=DOUBLE},
       </if>
       <if test="record.description != null">
         item.description = #{record.description,jdbcType=VARCHAR},
@@ -188,7 +188,7 @@
     update item item
     set item.id = #{record.id,jdbcType=INTEGER},
       item.title = #{record.title,jdbcType=VARCHAR},
-      item.price = #{record.price,jdbcType=DECIMAL},
+      item.price = #{record.price,jdbcType=DOUBLE},
       item.description = #{record.description,jdbcType=VARCHAR},
       item.sales = #{record.sales,jdbcType=INTEGER},
       item.img_url = #{record.imgUrl,jdbcType=VARCHAR}
@@ -203,7 +203,7 @@
         title = #{title,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
-        price = #{price,jdbcType=DECIMAL},
+        price = #{price,jdbcType=DOUBLE},
       </if>
       <if test="description != null">
         description = #{description,jdbcType=VARCHAR},
@@ -220,7 +220,7 @@
   <update id="updateByPrimaryKey" parameterType="com.commerce.shop.dataobject.ItemDO">
     update item
     set title = #{title,jdbcType=VARCHAR},
-      price = #{price,jdbcType=DECIMAL},
+      price = #{price,jdbcType=DOUBLE},
       description = #{description,jdbcType=VARCHAR},
       sales = #{sales,jdbcType=INTEGER},
       img_url = #{imgUrl,jdbcType=VARCHAR}

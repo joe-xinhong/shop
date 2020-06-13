@@ -17,7 +17,7 @@ public class ItemDO implements Serializable {
     /**
      * 价格
      */
-    private Long price;
+    private Double price;
 
     /**
      * 描述
@@ -52,11 +52,11 @@ public class ItemDO implements Serializable {
         this.title = title;
     }
 
-    public Long getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 

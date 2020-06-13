@@ -3,11 +3,10 @@ package com.commerce.shop.dao;
 import com.commerce.shop.dataobject.ItemDO;
 import com.commerce.shop.dataobject.ItemDOExample;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
-@Mapper
+@Repository
 public interface ItemDOMapper {
     long countByExample(ItemDOExample example);
 
