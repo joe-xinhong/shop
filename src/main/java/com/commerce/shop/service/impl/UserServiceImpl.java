@@ -8,6 +8,8 @@ import com.commerce.shop.error.BusinessException;
 import com.commerce.shop.error.EmBusinessError;
 import com.commerce.shop.model.UserModel;
 import com.commerce.shop.service.UserService;
+import com.commerce.shop.utils.ValidationResult;
+import com.commerce.shop.utils.ValidatorImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
@@ -23,6 +25,8 @@ public class UserServiceImpl implements UserService {
     private UserDOMapper userDOMapper;
     @Autowired
     private UserPasswordDOMapper userPasswordDOMapper;
+    @Autowired
+    private ValidatorImpl validator;
 
     @Override
     public UserModel getUserById(Integer id) {
@@ -45,11 +49,10 @@ public class UserServiceImpl implements UserService {
         if (userModel == null){
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
         }
-        if (StringUtils.isEmpty(userModel.getName()) ||
-                userModel.getGender() == null ||
-                userModel.getAge() == null ||
-                StringUtils.isEmpty(userModel.getTelphone())){
-            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
+        
+        ValidationResult result = validator.validate(userModel);
+        if (result.isHasErrors()){
+            throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR,result.getErrorMsg());
         }
         UserDO userDO = convertFromModel(userModel);
         try {

@@ -76,7 +76,6 @@ public class UserController extends BaseController{
             throw new BusinessException(EmBusinessError.PARAMETER_VALIDATION_ERROR);
         }
 
-        System.out.println("密码："+password+";加密后："+EncodeByMd5(password));
         //用户登录//验证合法性
         UserModel userModel = userService.validateLogin(telphone, EncodeByMd5(password));
 
@@ -92,9 +91,8 @@ public class UserController extends BaseController{
         int r = random.nextInt(99999);
         r += 10000;
         String code = String.valueOf(r);
+        System.out.println("手机号："+telphone+";验证码："+code);
         httpServletRequest.getSession().setAttribute(telphone,code);
-        log.info("手机号：{}",telphone);
-        log.info("验证码：{}",code);
         return CommonReturnType.create(code);
     }
 
@@ -127,17 +125,5 @@ public class UserController extends BaseController{
         return userDTO;
     }
 
-    /**
-     * 性别转换
-     * @param gender
-     * @return
-     */
-    private Integer convertFromString(String gender){
-        if (gender==null||gender.equals("男")){
-            return 1;
-        }else {
-            return -1;
-        }
-    }
 
 }
