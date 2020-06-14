@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.commerce.shop.dao.OrderDOMapper">
+  <resultMap id="BaseResultMap" type="com.commerce.shop.dataobject.OrderDO">
+    <id column="order_info_id" jdbcType="VARCHAR" property="id" />
+    <result column="order_info_user_id" jdbcType="INTEGER" property="userId" />
+    <result column="order_info_item_id" jdbcType="INTEGER" property="itemId" />
+    <result column="order_info_item_price" jdbcType="DOUBLE" property="itemPrice" />
+    <result column="order_info_amount" jdbcType="INTEGER" property="amount" />
+    <result column="order_info_order_price" jdbcType="DOUBLE" property="orderPrice" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    order_info.id as order_info_id, order_info.user_id as order_info_user_id, order_info.item_id as order_info_item_id, 
+    order_info.item_price as order_info_item_price, order_info.amount as order_info_amount, 
+    order_info.order_price as order_info_order_price
+  </sql>
+  <select id="selectByExample" parameterType="com.commerce.shop.dataobject.OrderDOExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from order_info order_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from order_info order_info
+    where order_info.id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from order_info
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.commerce.shop.dataobject.OrderDOExample">
+    delete from order_info order_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.commerce.shop.dataobject.OrderDO">
+    insert into order_info (id, user_id, item_id, 
+      item_price, amount, order_price
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=INTEGER}, #{itemId,jdbcType=INTEGER}, 
+      #{itemPrice,jdbcType=DOUBLE}, #{amount,jdbcType=INTEGER}, #{orderPrice,jdbcType=DOUBLE}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.commerce.shop.dataobject.OrderDO">
+    insert into order_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="itemId != null">
+        item_id,
+      </if>
+      <if test="itemPrice != null">
+        item_price,
+      </if>
+      <if test="amount != null">
+        amount,
+      </if>
+      <if test="orderPrice != null">
+        order_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemPrice != null">
+        #{itemPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="orderPrice != null">
+        #{orderPrice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.commerce.shop.dataobject.OrderDOExample" resultType="java.lang.Long">
+    select count(*) from order_info order_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update order_info order_info
+    <set>
+      <if test="record.id != null">
+        order_info.id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.userId != null">
+        order_info.user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemId != null">
+        order_info.item_id = #{record.itemId,jdbcType=INTEGER},
+      </if>
+      <if test="record.itemPrice != null">
+        order_info.item_price = #{record.itemPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="record.amount != null">
+        order_info.amount = #{record.amount,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderPrice != null">
+        order_info.order_price = #{record.orderPrice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update order_info order_info
+    set order_info.id = #{record.id,jdbcType=VARCHAR},
+      order_info.user_id = #{record.userId,jdbcType=INTEGER},
+      order_info.item_id = #{record.itemId,jdbcType=INTEGER},
+      order_info.item_price = #{record.itemPrice,jdbcType=DOUBLE},
+      order_info.amount = #{record.amount,jdbcType=INTEGER},
+      order_info.order_price = #{record.orderPrice,jdbcType=DOUBLE}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.commerce.shop.dataobject.OrderDO">
+    update order_info
+    <set>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="itemId != null">
+        item_id = #{itemId,jdbcType=INTEGER},
+      </if>
+      <if test="itemPrice != null">
+        item_price = #{itemPrice,jdbcType=DOUBLE},
+      </if>
+      <if test="amount != null">
+        amount = #{amount,jdbcType=INTEGER},
+      </if>
+      <if test="orderPrice != null">
+        order_price = #{orderPrice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.commerce.shop.dataobject.OrderDO">
+    update order_info
+    set user_id = #{userId,jdbcType=INTEGER},
+      item_id = #{itemId,jdbcType=INTEGER},
+      item_price = #{itemPrice,jdbcType=DOUBLE},
+      amount = #{amount,jdbcType=INTEGER},
+      order_price = #{orderPrice,jdbcType=DOUBLE}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>
