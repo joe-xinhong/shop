@@ -8,7 +8,6 @@ import com.commerce.shop.model.UserModel;
 import com.commerce.shop.service.UserService;
 import com.commerce.shop.utils.CommonReturnType;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.tomcat.util.security.MD5Encoder;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

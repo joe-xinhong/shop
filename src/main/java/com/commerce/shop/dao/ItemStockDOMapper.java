@@ -30,4 +30,6 @@ public interface ItemStockDOMapper {
     int updateByPrimaryKeySelective(ItemStockDO record);
 
     int updateByPrimaryKey(ItemStockDO record);
+
+    ItemStockDO selectByItemId(@Param("itemId") Integer itemId);
 }
