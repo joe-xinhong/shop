@@ -48,4 +48,9 @@ public class ItemModel {
      */
     @NotBlank(message = "商品图片信息不能为空")
     private String imgUrl;
+    /**
+     * 使用聚合模型
+     * 如果promoModel不为空，表示该商品还拥有为结束的活动
+     */
+    private PromoModel promoModel;
 }

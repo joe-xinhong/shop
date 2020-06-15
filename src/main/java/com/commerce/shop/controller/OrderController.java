@@ -26,7 +26,8 @@ public class OrderController extends BaseController{
     //封装下单请求
     @RequestMapping(value = "/createOrder",name = "创建订单",method = RequestMethod.POST)
     public CommonReturnType createOrder(@RequestParam(name = "itemId")Integer itemId,
-                                        @RequestParam(name = "amount")Integer amount) throws BusinessException {
+                                        @RequestParam(name = "amount")Integer amount,
+                                        @RequestParam(name = "promoId",required = false)Integer promoId) throws BusinessException {
         //获取用户登录信息
         Boolean isLogin = (Boolean)httpServletRequest.getSession().getAttribute("IS_LOGIN");
         if (isLogin == null || !isLogin.booleanValue()){
@@ -34,7 +35,7 @@ public class OrderController extends BaseController{
         }
         UserModel userModel = (UserModel)httpServletRequest.getSession().getAttribute("LOGIN_USER");
         System.out.println("userModel:"+userModel);
-        OrderModel orderModel = orderService.createOrder(userModel.getId(), itemId, amount);
+        OrderModel orderModel = orderService.createOrder(userModel.getId(), itemId, promoId, amount);
         return CommonReturnType.create(orderModel);
 
     }

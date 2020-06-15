@@ -37,6 +37,11 @@ public class OrderDO implements Serializable {
      */
     private Double orderPrice;
 
+    /**
+     * 活动id,非0表示正在活动
+     */
+    private Integer promoId;
+
     private static final long serialVersionUID = 1L;
 
     public String getId() {
@@ -87,6 +92,14 @@ public class OrderDO implements Serializable {
         this.orderPrice = orderPrice;
     }
 
+    public Integer getPromoId() {
+        return promoId;
+    }
+
+    public void setPromoId(Integer promoId) {
+        this.promoId = promoId;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -104,7 +117,8 @@ public class OrderDO implements Serializable {
             && (this.getItemId() == null ? other.getItemId() == null : this.getItemId().equals(other.getItemId()))
             && (this.getItemPrice() == null ? other.getItemPrice() == null : this.getItemPrice().equals(other.getItemPrice()))
             && (this.getAmount() == null ? other.getAmount() == null : this.getAmount().equals(other.getAmount()))
-            && (this.getOrderPrice() == null ? other.getOrderPrice() == null : this.getOrderPrice().equals(other.getOrderPrice()));
+            && (this.getOrderPrice() == null ? other.getOrderPrice() == null : this.getOrderPrice().equals(other.getOrderPrice()))
+            && (this.getPromoId() == null ? other.getPromoId() == null : this.getPromoId().equals(other.getPromoId()));
     }
 
     @Override
@@ -117,6 +131,7 @@ public class OrderDO implements Serializable {
         result = prime * result + ((getItemPrice() == null) ? 0 : getItemPrice().hashCode());
         result = prime * result + ((getAmount() == null) ? 0 : getAmount().hashCode());
         result = prime * result + ((getOrderPrice() == null) ? 0 : getOrderPrice().hashCode());
+        result = prime * result + ((getPromoId() == null) ? 0 : getPromoId().hashCode());
         return result;
     }
 
@@ -132,6 +147,7 @@ public class OrderDO implements Serializable {
         sb.append(", itemPrice=").append(itemPrice);
         sb.append(", amount=").append(amount);
         sb.append(", orderPrice=").append(orderPrice);
+        sb.append(", promoId=").append(promoId);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

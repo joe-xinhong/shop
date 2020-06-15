@@ -6,11 +6,13 @@ import com.commerce.shop.model.ItemModel;
 import com.commerce.shop.service.ItemService;
 import com.commerce.shop.utils.CommonReturnType;
 import lombok.extern.slf4j.Slf4j;
+import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -75,8 +77,20 @@ public class ItemController extends BaseController {
      * @return
      */
     private ItemDTO convertDTOFromModel(ItemModel itemModel){
+        if (itemModel == null){
+            return null;
+        }
         ItemDTO itemDTO = new ItemDTO();
         BeanUtils.copyProperties(itemModel,itemDTO);
+        if (itemModel.getPromoModel()!=null){
+            //有正在进行或者即将进行的秒杀活动
+            itemDTO.setPromoStatus(itemModel.getPromoModel().getStatus());
+            itemDTO.setPromoId(itemModel.getPromoModel().getId());
+            itemDTO.setStartDate(itemModel.getPromoModel().getStartDate().toString(DateTimeFormat.forPattern("yyyy-MM-dd HH:mm:ss")));
+            itemDTO.setPromoPrice(itemModel.getPromoModel().getPromoItemPrice());
+        }else {
+            itemDTO.setPromoStatus(0);
+        }
         return itemDTO;
     }
 }

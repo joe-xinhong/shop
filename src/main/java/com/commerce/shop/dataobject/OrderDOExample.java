@@ -473,6 +473,66 @@ public class OrderDOExample {
             addCriterion("order_info.order_price not between", value1, value2, "orderPrice");
             return (Criteria) this;
         }
+
+        public Criteria andPromoIdIsNull() {
+            addCriterion("order_info.promo_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoIdIsNotNull() {
+            addCriterion("order_info.promo_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoIdEqualTo(Integer value) {
+            addCriterion("order_info.promo_id =", value, "promoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoIdNotEqualTo(Integer value) {
+            addCriterion("order_info.promo_id <>", value, "promoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoIdGreaterThan(Integer value) {
+            addCriterion("order_info.promo_id >", value, "promoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("order_info.promo_id >=", value, "promoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoIdLessThan(Integer value) {
+            addCriterion("order_info.promo_id <", value, "promoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoIdLessThanOrEqualTo(Integer value) {
+            addCriterion("order_info.promo_id <=", value, "promoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoIdIn(List<Integer> values) {
+            addCriterion("order_info.promo_id in", values, "promoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoIdNotIn(List<Integer> values) {
+            addCriterion("order_info.promo_id not in", values, "promoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoIdBetween(Integer value1, Integer value2) {
+            addCriterion("order_info.promo_id between", value1, value2, "promoId");
+            return (Criteria) this;
+        }
+
+        public Criteria andPromoIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("order_info.promo_id not between", value1, value2, "promoId");
+            return (Criteria) this;
+        }
     }
 
     /**

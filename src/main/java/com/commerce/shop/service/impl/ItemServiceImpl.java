@@ -8,7 +8,9 @@ import com.commerce.shop.dataobject.ItemStockDO;
 import com.commerce.shop.error.BusinessException;
 import com.commerce.shop.error.EmBusinessError;
 import com.commerce.shop.model.ItemModel;
+import com.commerce.shop.model.PromoModel;
 import com.commerce.shop.service.ItemService;
+import com.commerce.shop.service.PromoService;
 import com.commerce.shop.utils.ValidationResult;
 import com.commerce.shop.utils.ValidatorImpl;
 import lombok.extern.slf4j.Slf4j;
@@ -30,6 +32,8 @@ public class ItemServiceImpl implements ItemService {
     private ItemDOMapper itemDOMapper;
     @Autowired
     private ItemStockDOMapper itemStockDOMapper;
+    @Autowired
+    private PromoService promoService;
 
     @Override
     @Transactional
@@ -82,6 +86,11 @@ public class ItemServiceImpl implements ItemService {
         //dataObject——>itemModel
         ItemModel itemModel = convertModelFromDataObject(itemDO,itemStockDO);
 
+        //获取商品是否有促销活动信息
+        PromoModel promoModel = promoService.getPromoByItemId(itemModel.getId());
+        if (promoModel != null && promoModel.getStatus().intValue()!=3){
+            itemModel.setPromoModel(promoModel);
+        }
         return itemModel;
     }
 
